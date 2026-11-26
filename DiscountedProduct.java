@@ -8,8 +8,16 @@ public class DiscountedProduct extends Product {
 
     private double discountedPercentage;
 
+    /**
+     * @throws IllegalArgumentException if the price is invalid or
+     *         {@code discountedPercentage} is not between 0 and 100
+     */
     public DiscountedProduct(String name, double price, int productId, double discountedPercentage) {
         super(name, price, productId);
+        if (!(discountedPercentage >= 0 && discountedPercentage <= 100)) {
+            throw new IllegalArgumentException(
+                    "Discount percentage must be between 0 and 100, got: " + discountedPercentage);
+        }
         this.discountedPercentage = discountedPercentage;
     }
 

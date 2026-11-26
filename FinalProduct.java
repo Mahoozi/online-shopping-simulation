@@ -9,8 +9,16 @@ public final class FinalProduct extends Product {
 
     private double promotionalPrice;
 
+    /**
+     * @throws IllegalArgumentException if the price is invalid or
+     *         {@code promotionalPrice} is negative or above the base price
+     */
     public FinalProduct(String name, double price, int productId, double promotionalPrice) {
         super(name, price, productId);
+        if (!(promotionalPrice >= 0 && promotionalPrice <= price)) {
+            throw new IllegalArgumentException("Promotional price must be between 0 and the base price ("
+                    + price + "), got: " + promotionalPrice);
+        }
         this.promotionalPrice = promotionalPrice;
     }
 

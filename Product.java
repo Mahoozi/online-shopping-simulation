@@ -13,7 +13,13 @@ public abstract class Product {
     private double price;
     private int productId;
 
+    /**
+     * @throws IllegalArgumentException if {@code price} is negative, NaN, or infinite
+     */
     public Product(String name, double price, int productId) {
+        if (!Double.isFinite(price) || price < 0) {
+            throw new IllegalArgumentException("Price must be a non-negative number, got: " + price);
+        }
         this.name = name;
         this.price = price;
         this.productId = productId;

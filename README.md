@@ -78,6 +78,14 @@ java -cp out OnlineShopDemo
 
 Example from the demo: a $999.00 iPhone with a 15% discount costs `999 - 149.85 = 849.15`.
 
+### Input validation
+
+Product constructors throw an `IllegalArgumentException` for values that would produce an invalid price:
+
+- **All products:** the base price must be a finite number of 0 or more.
+- **`DiscountedProduct`:** the discount percentage must be between 0 and 100, inclusive.
+- **`FinalProduct`:** the promotional price must be between 0 and the base price, inclusive.
+
 ### User roles and receipts
 
 - Each customer receipt (regular or premium) lists every product as `base price → final price` and then prints the **total of the final prices**.
@@ -127,7 +135,7 @@ Admin Stats: Total Products: 3 | Total Users: 2
 
 - All products and users are hard-coded in `main`. There is no user input, file, or database storage.
 - Prices are stored as `double` and printed without currency formatting, so amounts can appear as `$60.0`, and some sums can show floating-point artifacts.
-- Constructors do not validate input. A negative price or a discount above 100% produces a negative final price.
+- Validation covers prices and discounts only. Product and user IDs, names, and usernames are not checked, and IDs are not required to be unique.
 - There are no quantities, carts, taxes, shipping costs, or payment processing.
 - Loyalty points are kept only in memory for the lifetime of the program.
 - `RegularUser` and `PremiumUser` duplicate the itemized-receipt loop.
