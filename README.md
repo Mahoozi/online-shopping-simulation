@@ -73,10 +73,10 @@ java -cp out OnlineShopDemo
 | Product type | Final price |
 | --- | --- |
 | `RegularProduct` | `price` |
-| `DiscountedProduct` | `price - (price * discountPercentage / 100)` |
+| `DiscountedProduct` | `price - (price * discountPercentage / 100)`, rounded half-up to the nearest cent |
 | `FinalProduct` | `promotionalPrice` (the base price is shown but not used) |
 
-Example from the demo: a $999.00 iPhone with a 15% discount costs `999 - 149.85 = 849.15`.
+Example from the demo: a $999.00 iPhone with a 15% discount costs `999 - 149.85 = 849.15`. Rounding to cents keeps each receipt total equal to the sum of its printed line items. For example, 50% off $12.99 is charged as $6.50, not $6.495.
 
 ### Input validation
 

@@ -1,3 +1,6 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * A product whose final price is its base price reduced by a percentage
  * discount (for example, 15 means 15% off).
@@ -25,10 +28,14 @@ public class DiscountedProduct extends Product {
         return discountedPercentage;
     }
 
-    /** Final price = base price - (base price * discount% / 100). */
+    /**
+     * Final price = base price - (base price * discount% / 100), rounded half-up
+     * to whole cents so that receipt line items add up to the receipt total.
+     */
     @Override
     public double getFinalPrice() {
-        return getPrice() - (getPrice() * discountedPercentage / 100);
+        double discounted = getPrice() - (getPrice() * discountedPercentage / 100);
+        return BigDecimal.valueOf(discounted).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     @Override
