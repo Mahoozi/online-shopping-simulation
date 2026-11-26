@@ -86,6 +86,10 @@ Product constructors throw an `IllegalArgumentException` for values that would p
 - **`DiscountedProduct`:** the discount percentage must be between 0 and 100, inclusive.
 - **`FinalProduct`:** the promotional price must be between 0 and the base price, inclusive.
 
+### Currency formatting
+
+All prices and totals print as dollars with exactly two decimal places (for example, `$60.00`) through the shared helper `Product.formatCurrency(double)`. It formats with `Locale.US`, so the decimal separator is always a period, whatever the system locale. Discount percentages print as plain numbers (for example, `15.0%`).
+
 ### User roles and receipts
 
 - Each customer receipt (regular or premium) lists every product as `base price → final price` and then prints the **total of the final prices**.
@@ -108,22 +112,22 @@ Running `java -cp out OnlineShopDemo` prints:
 
 ```
 --- Receipt for PremiumUser: alice123 ---
-Product: iPhone - $999.0 → Final Price: $849.15
-Product: Jeans - $60.0 → Final Price: $60.0
-Product: T-Shirt - $25.0 → Final Price: $9.99
+Product: iPhone - $999.00 → Final Price: $849.15
+Product: Jeans - $60.00 → Final Price: $60.00
+Product: T-Shirt - $25.00 → Final Price: $9.99
 Total: $919.14
 Points Earned: 91
 
 --- Receipt for RegularUser: bob456 ---
-Product: iPhone - $999.0 → Final Price: $849.15
-Product: Jeans - $60.0 → Final Price: $60.0
-Product: T-Shirt - $25.0 → Final Price: $9.99
+Product: iPhone - $999.00 → Final Price: $849.15
+Product: Jeans - $60.00 → Final Price: $60.00
+Product: T-Shirt - $25.00 → Final Price: $9.99
 Total: $919.14
 
 --- Product Details (late binding) ---
-Product ID: 1, Name: iPhone, Price: $999.0, Discount: 15.0%
-Product ID: 2, Name: Jeans, Price: $60.0
-Product ID: 3, Name: T-Shirt, Price: $25.0, Promo Price: $9.99
+Product ID: 1, Name: iPhone, Price: $999.00, Discount: 15.0%
+Product ID: 2, Name: Jeans, Price: $60.00
+Product ID: 3, Name: T-Shirt, Price: $25.00, Promo Price: $9.99
 
 --- Special Behavior (safe downcasting) ---
 iPhone has a discount of 15.0%
@@ -134,7 +138,7 @@ Admin Stats: Total Products: 3 | Total Users: 2
 ## Current Limitations
 
 - All products and users are hard-coded in `main`. There is no user input, file, or database storage.
-- Prices are stored as `double` and printed without currency formatting, so amounts can appear as `$60.0`, and some sums can show floating-point artifacts.
+- Prices are stored and summed as `double`. Amounts are printed rounded to two decimal places with `Product.formatCurrency`, but the arithmetic itself is not exact decimal (`BigDecimal`) money math.
 - Validation covers prices and discounts only. Product and user IDs, names, and usernames are not checked, and IDs are not required to be unique.
 - There are no quantities, carts, taxes, shipping costs, or payment processing.
 - Loyalty points are kept only in memory for the lifetime of the program.

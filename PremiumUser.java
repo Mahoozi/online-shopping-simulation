@@ -25,11 +25,11 @@ public class PremiumUser extends User {
         System.out.println("--- Receipt for PremiumUser: " + getUsername() + " ---");
         double total = 0;
         for (Product product : products) {
-            System.out.println("Product: " + product.getName() + " - $" + product.getPrice()
-                    + " → Final Price: $" + product.getFinalPrice());
+            System.out.println("Product: " + product.getName() + " - " + Product.formatCurrency(product.getPrice())
+                    + " → Final Price: " + Product.formatCurrency(product.getFinalPrice()));
             total += product.getFinalPrice();
         }
-        System.out.println("Total: $" + total);
+        System.out.println("Total: " + Product.formatCurrency(total));
 
         // 1 loyalty point per full $10 of the order total (partial amounts are dropped)
         int pointsEarned = (int) (total / 10);

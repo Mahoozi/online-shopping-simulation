@@ -17,10 +17,10 @@ public class RegularUser extends User {
         System.out.println("--- Receipt for RegularUser: " + getUsername() + " ---");
         double total = 0;
         for (Product product : products) {
-            System.out.println("Product: " + product.getName() + " - $" + product.getPrice()
-                    + " → Final Price: $" + product.getFinalPrice());
+            System.out.println("Product: " + product.getName() + " - " + Product.formatCurrency(product.getPrice())
+                    + " → Final Price: " + Product.formatCurrency(product.getFinalPrice()));
             total += product.getFinalPrice();
         }
-        System.out.println("Total: $" + total);
+        System.out.println("Total: " + Product.formatCurrency(total));
     }
 }

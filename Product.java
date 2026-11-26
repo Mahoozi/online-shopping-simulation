@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 /**
  * Base type for every item in the shop simulation.
  *
@@ -41,10 +43,18 @@ public abstract class Product {
     /** Returns the price the customer actually pays for this product. */
     public abstract double getFinalPrice();
 
+    /**
+     * Formats an amount as dollars with exactly two decimal places, e.g. {@code $60.00}.
+     * Uses {@link Locale#US} so the decimal separator is always a period.
+     */
+    public static String formatCurrency(double amount) {
+        return "$" + String.format(Locale.US, "%.2f", amount);
+    }
+
     @Override
     public String toString() {
         return "Product ID: " + productId
                 + ", Name: " + name
-                + ", Price: $" + price;
+                + ", Price: " + formatCurrency(price);
     }
 }

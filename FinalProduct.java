@@ -17,7 +17,7 @@ public final class FinalProduct extends Product {
         super(name, price, productId);
         if (!(promotionalPrice >= 0 && promotionalPrice <= price)) {
             throw new IllegalArgumentException("Promotional price must be between 0 and the base price ("
-                    + price + "), got: " + promotionalPrice);
+                    + formatCurrency(price) + "), got: " + promotionalPrice);
         }
         this.promotionalPrice = promotionalPrice;
     }
@@ -35,6 +35,6 @@ public final class FinalProduct extends Product {
     @Override
     public String toString() {
         return super.toString()
-                + ", Promo Price: $" + promotionalPrice;
+                + ", Promo Price: " + formatCurrency(promotionalPrice);
     }
 }
